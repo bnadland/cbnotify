@@ -16,8 +16,8 @@ def main():
         d = feedparser.parse(args.url[0])
         for i in d['entries']:
             id = u''.join(BeautifulSoup(i['id']).findAll(text=True))
-            title = u''.join(BeautifulSoup(i['title']).findAll(text=True))
-            summary = u''.join(BeautifulSoup(i['summary']).findAll(text=True))
+            title = u''.join(BeautifulSoup(i['title']).getText())
+            summary = BeautifulSoup(i['summary']).ul.li.p.contents[1].replace('&#x27;', "'").strip()
             if id not in seen:
                 seen.append(id)
                 if not first:
