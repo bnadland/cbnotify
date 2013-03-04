@@ -17,7 +17,11 @@ def main():
         for i in d['entries']:
             id = u''.join(BeautifulSoup(i['id']).findAll(text=True))
             title = u''.join(BeautifulSoup(i['title']).getText())
-            summary = BeautifulSoup(i['summary']).ul.li.p.contents[1].replace('&#x27;', "'").strip()
+            summary = ''
+            try:
+                summary = BeautifulSoup(i['summary']).ul.li.p.contents[1].replace('&#x27;', "'").strip()
+            except AttributeError:
+                pass
             if id not in seen:
                 seen.append(id)
                 if not first:
